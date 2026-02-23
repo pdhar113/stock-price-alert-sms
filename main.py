@@ -20,6 +20,22 @@ print("API Response keys:", data.keys())
 
 if "Time Series (Daily)" not in data:
     print("API Error Response:", data)
+    # Check for rate limit message
+    if (
+        "Information" in data
+        and "API key" in data["Information"]
+        and "rate limit" in data["Information"]
+    ):
+        account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+        auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+        twilio_from_number = os.environ["TWILIO_FROM_NUMBER"]
+        twilio_to_number = os.environ["TWILIO_TO_NUMBER"]
+        client = Client(account_sid, auth_token)
+        client.messages.create(
+            body="STOCK API response limit over for today. No stock/news alert will be sent until tomorrow.",
+            from_=twilio_from_number,
+            to=twilio_to_number,
+        )
     raise SystemExit("Failed to get stock data. Check API response above.")
 
 stock_data = [value for (key, value) in data["Time Series (Daily)"].items()]
