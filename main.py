@@ -39,10 +39,7 @@ news_params = {
 news_response = requests.get(NEWS_ENDPOINT, params=news_params)
 news_response.raise_for_status()
 news = news_response.json()
-
-# Filter articles to only those with a non-empty description
-articles_with_description = [a for a in news["articles"] if a.get("description")]
-three_articles = articles_with_description[:3]
+three_articles = news["articles"][:3]
 
 # Calculate percentage change
 diff = yesterday_closing_price - day_before_yesterday_closing_price
@@ -55,7 +52,7 @@ formatted_articles = [
     for article in three_articles
 ]
 
-if abs(diff_percent) >= 0:
+if abs(diff_percent) >= 5:
     account_sid = os.environ["TWILIO_ACCOUNT_SID"]
     auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     twilio_from_number = os.environ["TWILIO_FROM_NUMBER"]
