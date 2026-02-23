@@ -70,7 +70,7 @@ formatted_articles = [
 ]
 
 # ---- FIX: Meaningful alert condition ----
-if abs(diff_percent) >= 5:
+if abs(diff_percent) >= 0:
     account_sid = os.environ["TWILIO_ACCOUNT_SID"]
     auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     twilio_from_number = os.environ["TWILIO_FROM_NUMBER"]
