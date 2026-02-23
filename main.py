@@ -39,7 +39,10 @@ news_params = {
 news_response = requests.get(NEWS_ENDPOINT, params=news_params)
 news_response.raise_for_status()
 news = news_response.json()
-three_articles = news["articles"][:3]
+
+# Filter articles to only those with a non-empty description
+articles_with_description = [a for a in news["articles"] if a.get("description")]
+three_articles = articles_with_description[:3]
 
 # Calculate percentage change
 diff = yesterday_closing_price - day_before_yesterday_closing_price
