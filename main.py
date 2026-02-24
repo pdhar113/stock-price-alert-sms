@@ -20,7 +20,7 @@ print("API Response keys:", data.keys())
 
 if "Time Series (Daily)" not in data:
     print("API Error Response:", data)
-    # Always print the Information field for debugging
+    # debug info
     info = data.get("Information", "")
     print("[DEBUG] API Information field:", info)
     # Send SMS if 'rate limit' is mentioned in the Information field
@@ -67,7 +67,7 @@ formatted_articles = [
     for article in three_articles
 ]
 
-if abs(diff_percent) >= 0:
+if abs(diff_percent) >= 5:
     account_sid = os.environ["TWILIO_ACCOUNT_SID"]
     auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     twilio_from_number = os.environ["TWILIO_FROM_NUMBER"]
