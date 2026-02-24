@@ -2,7 +2,6 @@ import requests
 from twilio.rest import Client
 import os
 
-print("[DEBUG] STOCK_API_KEY exists:", "STOCK_API_KEY" in os.environ)
 STOCK_NAME = "NVDA"
 COMPANY_NAME = "NVIDIA Corporation"
 
